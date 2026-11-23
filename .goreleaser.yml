@@ -1,3 +1,5 @@
+version: 2
+
 builds:
   # List of builds
   - # First Build
@@ -32,12 +34,16 @@ builds:
       - windows_amd64
 
 checksum:
-  name_template: "{{ .ProjectName }}_{{ .Version }}_sha512-checksums.txt"
+  name_template: "{{ .ProjectName }}_{{ .Tag }}_sha512-checksums.txt"
   algorithm: sha512
 
 archives:
   - id: tar
-    format: tar.gz
+    formats:
+      - tar.gz
+    # Keep the v1.0.0 asset names (the tag keeps its "v" prefix, e.g. ..._v1.0.1_linux_amd64.tar.gz)
+    # that .bonsai.yml and the Sensu asset registration expect.
+    name_template: "{{ .ProjectName }}_{{ .Tag }}_{{ .Os }}_{{ .Arch }}{{ if .Arm }}v{{ .Arm }}{{ end }}"
     files:
       - LICENSE
       - README.md
