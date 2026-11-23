@@ -1,8 +1,8 @@
 package main
 
 import (
-	"github.com/sensu-community/sensu-plugin-sdk/sensu"
-	"github.com/sensu/sensu-go/types"
+	"github.com/sensu/sensu-plugin-sdk/sensu"
+	corev2 "github.com/sensu/core/v2"
 )
 
 // Config represents the mutator plugin config.
@@ -25,11 +25,11 @@ func main() {
 	mutator.Execute()
 }
 
-func checkArgs(_ *types.Event) error {
+func checkArgs(_ *corev2.Event) error {
 	return nil
 }
 
-func executeMutator(event *types.Event) (*types.Event, error) {
+func executeMutator(event *corev2.Event) (*corev2.Event, error) {
 
 	event.Entity.Redact = nil
 	event.Entity.System.Network.Interfaces = nil
