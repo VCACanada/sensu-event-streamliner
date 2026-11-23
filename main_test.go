@@ -31,9 +31,9 @@ func TestExecuteMutator(t *testing.T) {
 func TestExecuteMutatorEncodesMaps(t *testing.T) {
 	assert := assert.New(t)
 	event := corev2.FixtureEvent("entity1", "check1")
-	event.Entity.ObjectMeta.Labels = map[string]string{"site": "cadc"}
-	event.Entity.ObjectMeta.Annotations = map[string]string{"note": "x"}
-	event.Check.ObjectMeta.Labels = map[string]string{"team": "it"}
+	event.Entity.Labels = map[string]string{"site": "cadc"}
+	event.Entity.Annotations = map[string]string{"note": "x"}
+	event.Check.Labels = map[string]string{"team": "it"}
 	ev, err := executeMutator(event)
 	assert.NoError(err)
 	out, err := json.Marshal(ev)
